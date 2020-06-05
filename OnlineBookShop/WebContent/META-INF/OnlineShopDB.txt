@@ -1,0 +1,36 @@
+create database onlinebookshopdb;
+use onlinebookshopdb;
+
+create table user_table(userid varchar(10) PRIMARY KEY,
+firstName varchar(20), middleName varchar(20), 
+lastName varchar(20), email varchar(50), phone long);
+
+create table login_table(loginid varchar(10) PRIMARY KEY, 
+userId varchar(10), username varchar(15), 
+password varchar(15), role varchar(5), 
+FOREIGN KEY (userId) references user_table(userId));
+
+insert into user_table values('JLC-U-0001', 'Rahul','','Kumar', 
+'rahul.kr@gmail.com', 9711001624);
+
+insert into login_table values('JLC-L-0001', 'JLC-U-0001', 
+'rahul.kr', 'rahul.kr', 'Admin');
+
+create table book_table(bookid int PRIMARY KEY auto_increment, 
+bookName varchar(60), author varchar(50), cost float, 
+publication varchar(50), edition varchar(15));
+
+create table order_table(orderId varchar(50) PRIMARY KEY,
+address varchar(26), street varchar(6), city varchar(30), 
+state varchar(21), country varchar(21), zip varchar(6),
+cardNo varchar(16), expDate varchar(8), totalAmount float,
+totalItem int, userId varchar(10), orderDate varchar(10),
+status varchar(25), 
+FOREIGN KEY (userId) references user_table(userId) );
+
+create table orderItem_table(
+orderItemId int PRIMARY KEY auto_increment, 
+bookId int, quantity int, orderId varchar(50), 
+FOREIGN KEY (bookId) references book_table(bookId), 
+FOREIGN KEY (orderId) references order_table(orderId));
+
